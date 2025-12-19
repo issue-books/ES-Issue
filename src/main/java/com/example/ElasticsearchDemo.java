@@ -72,7 +72,7 @@ public class ElasticsearchDemo {
             String id = String.valueOf(i);
             br.operations(op -> op
                 .index(idx -> idx
-                    .index("users")
+                    .index("posts")
                     .id(id)
                     .document(jsonMap)
                 )
@@ -99,7 +99,7 @@ public class ElasticsearchDemo {
             System.out.println("Loop " + loopIndex + ": Initiating delete_by_query (Sync)...");
             try {
                 DeleteByQueryRequest request = new DeleteByQueryRequest.Builder()
-                        .index("users")
+                        .index("posts")
                         .query(q -> q
                                 .term(t -> t
                                         .field("user")
@@ -134,7 +134,7 @@ public class ElasticsearchDemo {
             System.out.println("Loop " + loopIndex + ": Initiating delete_by_query...");
             
             DeleteByQueryRequest request = new DeleteByQueryRequest.Builder()
-                    .index("users")
+                    .index("posts")
                     .query(q -> q
                         .term(t -> t
                             .field("user")

@@ -45,7 +45,7 @@ ES 端:
 import co.elastic.clients.elasticsearch._types.Conflicts;
 
 DeleteByQueryRequest request = new DeleteByQueryRequest.Builder()
-        .index("users")
+        .index("posts")
         .query(q -> q.term(t -> t.field("user").value("kimchy")))
         .conflicts(Conflicts.Proceed) // 关键配置：忽略版本冲突
         .build();
