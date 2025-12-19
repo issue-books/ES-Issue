@@ -96,31 +96,29 @@ public class ElasticsearchDemo {
 
         for (int i = 0; i < loopCount; i++) {
             final int loopIndex = i + 1;
-            new Thread(() -> {
-                System.out.println("Loop " + loopIndex + ": Initiating delete_by_query (Sync)...");
-                try {
-                    DeleteByQueryRequest request = new DeleteByQueryRequest.Builder()
-                            .index("users")
-                            .query(q -> q
-                                    .term(t -> t
-                                            .field("user")
-                                            .value("kimchy")
-                                    )
-                            )
+            System.out.println("Loop " + loopIndex + ": Initiating delete_by_query (Sync)...");
+            try {
+                DeleteByQueryRequest request = new DeleteByQueryRequest.Builder()
+                        .index("users")
+                        .query(q -> q
+                                .term(t -> t
+                                        .field("user")
+                                        .value("kimchy")
+                                )
+                        )
 //                            .conflicts(Conflicts.Proceed)  // 解决方案：忽略版本冲突
-                            .build();
+                        .build();
 
-                    DeleteByQueryResponse response = client.deleteByQuery(request);
-                    System.out.println("Loop " + loopIndex + ": Success. Deleted " + response.deleted());
-                } catch (Exception e) {
-                    System.err.println("Loop " + loopIndex + ": Failed. " + e.getMessage());
-                    if (e.getMessage().contains("Conflict") || e.getMessage().contains("409")) {
-                        System.err.println("Loop " + loopIndex + ": 409 Conflict Reproduced!");
-                    }
-                } finally {
-                    latch.countDown();
+                DeleteByQueryResponse response = client.deleteByQuery(request);
+                System.out.println("Loop " + loopIndex + ": Success. Deleted " + response.deleted());
+            } catch (Exception e) {
+                System.err.println("Loop " + loopIndex + ": Failed. " + e.getMessage());
+                if (e.getMessage().contains("Conflict") || e.getMessage().contains("409")) {
+                    System.err.println("Loop " + loopIndex + ": 409 Conflict Reproduced!");
                 }
-            }).start();
+            } finally {
+                latch.countDown();
+            }
         }
 
         latch.await(10, TimeUnit.SECONDS);
