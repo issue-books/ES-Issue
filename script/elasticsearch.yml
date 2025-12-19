@@ -1,0 +1,35 @@
+# ======================== Elasticsearch Configuration =========================
+#
+# NOTE: Elasticsearch comes with reasonable defaults for most settings.
+#       Before you set out to tweak and tune the configuration, make sure you
+#       understand what are you trying to accomplish and the consequences.
+#
+# The primary way of configuring a node is via this file. This template lists
+# the most important settings you may want to configure for a production cluster.
+#
+# Please consult the documentation for further information on configuration options:
+# https://www.elastic.co/guide/en/elasticsearch/reference/index.html
+#
+# 集群名称
+cluster.name: my-single-node
+
+# 节点名称
+node.name: node-1
+
+# 数据/日志路径
+path.data: F:\app\elasticsearch-8.14.2\data
+path.logs: F:\app\elasticsearch-8.14.2\logs
+
+# 网络配置（推荐组合：HTTP对外，节点通信对内）
+network.host: 127.0.0.1
+http.host: 0.0.0.0
+http.port: 9200
+
+# 单节点核心配置（关键：仅保留这一行，删掉 cluster.initial_master_nodes）
+discovery.type: single-node
+
+# 关闭安全功能（测试用）
+xpack.security.enabled: false
+xpack.security.enrollment.enabled: false
+xpack.security.http.ssl.enabled: false
+xpack.security.transport.ssl.enabled: false
