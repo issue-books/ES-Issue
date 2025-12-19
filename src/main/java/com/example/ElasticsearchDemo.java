@@ -44,7 +44,7 @@ public class ElasticsearchDemo {
             // reproduceIssue(asyncClient);
 
             // 2. Reproduce Issue (Sync Concurrent)
-//            reproduceIssueSyncConcurrent(client);
+            reproduceIssueSyncConcurrent(client);
 
             // Wait a bit for async operations to complete/fail
             Thread.sleep(5000);
